@@ -11,10 +11,10 @@ public class RetrofitClient {
 
     private static Retrofit retrofit = null;
 
-    public static Retrofit getRetrofitClient(){
+    public static Retrofit getRetrofitClient(String base_url){
         if (retrofit==null){
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Api.BASE_URL_SCORE)
+                    .baseUrl(base_url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

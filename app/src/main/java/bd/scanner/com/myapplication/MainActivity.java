@@ -25,44 +25,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Api api = RetrofitClient.getRetrofitClient().create(Api.class);
-
-        Call<Score> scoreCall = api.getScore("1022347","5ns1uE5qMph2iOe3mGw4DGqTbd32");
-
-        scoreCall.enqueue(new Callback<Score>() {
-            @Override
-            public void onResponse(Call<Score> call, Response<Score> response) {
-                Score score = response.body();
-                Log.d("Response", score.getStat());
-            }
-
-            @Override
-            public void onFailure(Call<Score> call, Throwable t) {
-                Log.d("Response", t.getMessage());
-            }
-        });
-
-//        Call<List<Hero>> call = api.getHeroes();
+//        Api api = RetrofitClient.getRetrofitClient(Api.BASE_URL_SCORE).create(Api.class);
 //
-//        call.enqueue(new Callback<List<Hero>>() {
+//        Call<Score> scoreCall = api.getScore("1022347","5ns1uE5qMph2iOe3mGw4DGqTbd32");
+//
+//        scoreCall.enqueue(new Callback<Score>() {
 //            @Override
-//            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
-//                Log.d("Response",response.body().toString());
-//
-//                List<Hero> heroes = response.body();
-//
-//                for (Hero h:heroes){
-//                    Log.d("Response",h.getRealname());
-//                    Log.d("Response",h.getBio());
-//                    Log.d("Response",h.getCreatedby());
-//                    Log.d("Response",h.getFirstappearance());
-//                }
+//            public void onResponse(Call<Score> call, Response<Score> response) {
+//                Score score = response.body();
+//                Log.d("Response", score.getStat());
 //            }
 //
 //            @Override
-//            public void onFailure(Call<List<Hero>> call, Throwable t) {
-//                Log.d("Response",t.getMessage());
+//            public void onFailure(Call<Score> call, Throwable t) {
+//                Log.d("Response", t.getMessage());
 //            }
 //        });
+
+        Api apiHero = RetrofitClient.getRetrofitClient(Api.BASE_URL).create(Api.class);
+
+        Call<List<Hero>> call = apiHero.getHeroes();
+
+        call.enqueue(new Callback<List<Hero>>() {
+            @Override
+            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
+                Log.d("Response",response.body().toString());
+
+                List<Hero> heroes = response.body();
+
+                for (Hero h:heroes){
+                    Log.d("Response",h.getRealname());
+                    Log.d("Response",h.getBio());
+                    Log.d("Response",h.getCreatedby());
+                    Log.d("Response",h.getFirstappearance());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Hero>> call, Throwable t) {
+                Log.d("Response",t.getMessage());
+            }
+        });
     }
 }

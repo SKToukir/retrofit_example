@@ -1,10 +1,12 @@
 package bd.scanner.com.myapplication.remote;
 
+import java.util.HashMap;
 import java.util.List;
 
 import bd.scanner.com.myapplication.model.Hero;
 import bd.scanner.com.myapplication.model.Score;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -23,4 +25,7 @@ public interface Api {
 
     @POST("cricketScore")
     Call<Score> getScore(@Query("unique_id")String unique_id, @Query("apikey") String apikey);
+
+    @POST("")
+    Call<Score> sc(@Body HashMap<String, String> body);
 }
