@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.List;
 
 import bd.scanner.com.myapplication.model.Hero;
+import bd.scanner.com.myapplication.model.Score;
 import bd.scanner.com.myapplication.remote.Api;
 import bd.scanner.com.myapplication.remote.RetrofitClient;
 import retrofit2.Call;
@@ -26,27 +27,42 @@ public class MainActivity extends AppCompatActivity {
 
         Api api = RetrofitClient.getRetrofitClient().create(Api.class);
 
-        Call<List<Hero>> call = api.getHeroes();
+        Call<Score> scoreCall = api.getScore("1022347","5ns1uE5qMph2iOe3mGw4DGqTbd32");
 
-        call.enqueue(new Callback<List<Hero>>() {
+        scoreCall.enqueue(new Callback<Score>() {
             @Override
-            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
-                Log.d("Response",response.body().toString());
-
-                List<Hero> heroes = response.body();
-
-                for (Hero h:heroes){
-                    Log.d("Response",h.getRealname());
-                    Log.d("Response",h.getBio());
-                    Log.d("Response",h.getCreatedby());
-                    Log.d("Response",h.getFirstappearance());
-                }
+            public void onResponse(Call<Score> call, Response<Score> response) {
+                Score score = response.body();
+                Log.d("Response", score.getStat());
             }
 
             @Override
-            public void onFailure(Call<List<Hero>> call, Throwable t) {
-                Log.d("Response",t.getMessage());
+            public void onFailure(Call<Score> call, Throwable t) {
+                Log.d("Response", t.getMessage());
             }
         });
+
+//        Call<List<Hero>> call = api.getHeroes();
+//
+//        call.enqueue(new Callback<List<Hero>>() {
+//            @Override
+//            public void onResponse(Call<List<Hero>> call, Response<List<Hero>> response) {
+//                Log.d("Response",response.body().toString());
+//
+//                List<Hero> heroes = response.body();
+//
+//                for (Hero h:heroes){
+//                    Log.d("Response",h.getRealname());
+//                    Log.d("Response",h.getBio());
+//                    Log.d("Response",h.getCreatedby());
+//                    Log.d("Response",h.getFirstappearance());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Hero>> call, Throwable t) {
+//                Log.d("Response",t.getMessage());
+//            }
+//        });
     }
 }
